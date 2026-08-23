@@ -1,0 +1,122 @@
+{
+  "home": {
+    "editor_picks": "مختارات",
+    "sections": {
+      "news": "أخبار",
+      "investigations": "تقارير استقصائية",
+      "economy": "اقتصاد",
+      "other": "منوعات",
+      "media": "ميديا",
+      "mind_forum": "منتدى التفكير",
+      "maps": "خرائط",
+      "opinion_articles": "مقالات الرأي",
+      "political_alert": "تنبيه سياسي",
+      "filmani": "فيلماني",
+      "nasaq_podcast": "بودكاست نسق",
+      "control": "سيطرة"
+    }
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "not_found": "غير موجود",
+    "back_to_home": "العودة إلى الرئيسية"
+  },
+  "header": {
+    "search": "بحث",
+    "menu": "القائمة",
+    "close": "إغلاق",
+    "mind_forum_button": "منتدى التفكير"
+  },
+  "footer": {
+    "brand": "السويداء برس",
+    "sections": "الأقسام",
+    "follow_us": "تابعوا السويداء برس",
+    "contact": "تواصل معنا",
+    "copyright": "© {year} السويداء برس",
+    "who_we_are_title": "من نحن",
+    "back_to_top": "↑ العودة إلى الأعلى",
+    "mind_forum_button": "منتدى التفكير",
+    "who_we_are_text": "السويداء برس هي منصة مستقلة تعنى بالتغطية المستمرة لأخبار السويداء ومحيطها بدقة وحياد وموضوعية، وبالسرعة الممكنة، من خلال شبكة واسعة من مراسليها بهدف ردم الفجوة بين الناس والحقيقة."
+  },
+  "breaking": {
+    "label": "عاجل"
+  },
+  "article": {
+    "read_more": "اقرأ المزيد",
+    "related": "مقالات ذات صلة",
+    "by": "بقلم",
+    "min_read": "دقيقة قراءة",
+    "no_articles": "لا توجد مقالات",
+    "watch_video": "مشاهدة الفيديو",
+    "listen_podcast": "استماع إلى البودكاست",
+    "watch_documentary": "مشاهدة الفيلم الوثائقي",
+    "gallery": "معرض الصور",
+    "caption": "تعليق",
+    "credit": "تصوير",
+    "video_badge": "فيديو"
+  },
+  "category": {
+    "no_articles": "لا توجد مقالات في هذا القسم",
+    "more": "المزيد",
+    "sections": "الأقسام"
+  },
+  "author": {
+    "articles": "مقالات الكاتب",
+    "editor": "محرر",
+    "contributor": "كاتب",
+    "no_articles": "لا توجد مقالات بعد"
+  },
+  "tag": {
+    "articles": "مقالات تحت وسم {name}",
+    "no_articles": "لا توجد مقالات تحت هذا الوسم"
+  },
+  "search": {
+    "title": "البحث",
+    "placeholder": "ابحث عن مقالات...",
+    "button": "بحث",
+    "advanced": "بحث متقدم",
+    "simple": "بحث بسيط",
+    "filters": {
+      "category": "القسم",
+      "author": "الكاتب",
+      "tag": "الوسم",
+      "content_type": "نوع المحتوى",
+      "date_from": "من تاريخ",
+      "date_to": "إلى تاريخ",
+      "sort": "الترتيب",
+      "sort_options": {
+        "relevance": "حسب الصلة",
+        "newest": "الأحدث",
+        "oldest": "الأقدم"
+      },
+      "apply": "تطبيق الفلاتر",
+      "clear": "مسح",
+      "results_for": "نتائج البحث عن: {query}"
+    }
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي",
+    "page": "صفحة",
+    "of": "من"
+  },
+  "errors": {
+    "404_title": "404",
+    "404_message": "الصفحة غير موجودة",
+    "500_title": "500",
+    "500_message": "حدث خطأ في الخادم",
+    "try_again": "حاول مرة أخرى"
+  },
+  "static": {
+  "about_title": "عن السويداء برس",
+  "about_content": "السويداء برس منصة إخبارية مستقلة تهدف إلى نقل الحقيقة بموضوعية واحترافية...",
+  "contact_title": "تواصل معنا",
+  "contact_intro": "للاستفسار وتقديم الشكاوى، أو لمشاركة مقالاتك، تواصل معنا عبر الإيميل:",
+  "email": "contact.suwaydapress@gmail.com",
+  "social_intro": "أو عبر وسائل التواصل الاجتماعي:",
+  "facebook_group_intro": "أو يمكنك المشاركة بحوار مع محرري ومتابعي الصفحة عبر مجموعة الفيسبوك",
+  "facebook_group_link": "أخبار السويداء",
+  "facebook_group_url": "https://www.facebook.com/share/g/1GnZgjQQnh/"
+  }
+}

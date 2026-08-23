@@ -1,0 +1,122 @@
+{
+  "home": {
+    "editor_picks": "Editor's Picks",
+    "sections": {
+      "news": "News",
+      "investigations": "Investigations",
+      "economy": "Economy",
+      "other": "Other",
+      "media": "Media",
+      "mind_forum": "Mind Forum",
+      "maps": "Maps",
+      "opinion_articles": "Opinion Articles",
+      "political_alert": "Political Alert",
+      "filmani": "Filmani",
+      "nasaq_podcast": "Nasaq Podcast",
+      "control": "Control"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "not_found": "Not found",
+    "back_to_home": "Back to Home"
+  },
+  "header": {
+    "search": "Search",
+    "menu": "Menu",
+    "close": "Close",
+    "mind_forum_button": "Mind Forum"
+  },
+  "footer": {
+    "brand": "Suwayda Press",
+    "sections": "Sections",
+    "follow_us": "Follow Suwayda Press",
+    "contact": "Contact Us",
+    "copyright": "© {year} Suwayda Press",
+    "who_we_are_title": "Who We Are",
+    "back_to_top": "↑ Back to Top",
+    "mind_forum_button": "Mind Forum",
+    "who_we_are_text": "Suwayda Press is an independent platform dedicated to the continuous coverage of Suwayda and its surroundings with accuracy, impartiality, and objectivity, at the fastest possible speed, through a wide network of correspondents, aiming to bridge the gap between people and the truth."
+  },
+  "breaking": {
+    "label": "Breaking"
+  },
+  "article": {
+    "read_more": "Read more",
+    "related": "Related Articles",
+    "by": "By",
+    "min_read": "min read",
+    "no_articles": "No articles",
+    "watch_video": "Watch video",
+    "listen_podcast": "Listen to podcast",
+    "watch_documentary": "Watch documentary",
+    "gallery": "Gallery",
+    "caption": "Caption",
+    "credit": "Credit",
+    "video_badge": "Video"
+  },
+  "category": {
+    "no_articles": "No articles in this section",
+    "more": "More",
+    "sections": "Sections"
+  },
+  "author": {
+    "articles": "Articles by {name}",
+    "editor": "Editor",
+    "contributor": "Contributor",
+    "no_articles": "No articles yet"
+  },
+  "tag": {
+    "articles": "Articles tagged with {name}",
+    "no_articles": "No articles with this tag"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search for articles...",
+    "button": "Search",
+    "advanced": "Advanced Search",
+    "simple": "Simple Search",
+    "filters": {
+      "category": "Category",
+      "author": "Author",
+      "tag": "Tag",
+      "content_type": "Content Type",
+      "date_from": "From date",
+      "date_to": "To date",
+      "sort": "Sort by",
+      "sort_options": {
+        "relevance": "Relevance",
+        "newest": "Newest first",
+        "oldest": "Oldest first"
+      },
+      "apply": "Apply filters",
+      "clear": "Clear",
+      "results_for": "Search results for: {query}"
+    }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
+  },
+  "errors": {
+    "404_title": "404",
+    "404_message": "Page not found",
+    "500_title": "500",
+    "500_message": "Server error",
+    "try_again": "Try again"
+  },
+  "static": {
+  "about_title": "About Suwayda Press",
+  "about_content": "Suwayda Press is an independent news platform aiming to convey the truth objectively and professionally...",
+  "contact_title": "Contact Us",
+  "contact_intro": "For inquiries, complaints, or to share your articles, please contact us via this email:",
+  "email": "contact.suwaydapress@gmail.com",
+  "social_intro": "Or via our social media platforms:",
+  "facebook_group_intro": "Or join the conversation with our editors and readers on our Facebook group",
+  "facebook_group_link": "Suwayda News",
+  "facebook_group_url": "https://www.facebook.com/share/g/1GnZgjQQnh/"
+  }
+}

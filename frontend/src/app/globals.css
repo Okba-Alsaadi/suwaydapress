@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #550000;
+  --color-secondary: #4b5680;
+  --color-blackish: #3f3f3f;
+  --color-whiteish: #e1dde1;
+  --color-greyish: #bebebe;
+  --color-support-1: #fff547;
+  --color-support-2: #EFB096;
+}
+
+@custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* تعيين الخطوط حسب اللغة */
+:lang(ar) {
+  --font-body: 'Noto Naskh Arabic', 'Droid Arabic Naskh', Georgia, serif;
+  --font-ui: 'Amiri', 'Playfair Display', serif;
+}
+:lang(en) {
+  --font-body: Georgia, 'Source Sans 3', 'Noto Naskh Arabic', serif;
+  --font-ui: 'Playfair Display', 'Amiri', serif;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;                     /* حجم أساسي احترافي */
+  line-height: 1.6;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* واجهة المستخدم (هيدر، فوتر، قوائم) – بخط سميك */
+header, footer, nav, .font-ui {
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+
+/* تقليل نصف قطر الانحناء */
+.rounded-sm, .rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl {
+  border-radius: 0.125rem !important;
+}
+
+/* تحسين التمرير ومنع الوميض */
+.sticky {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+a, button, [role="button"] {
+  touch-action: manipulation;
+}

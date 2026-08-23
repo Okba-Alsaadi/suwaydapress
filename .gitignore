@@ -1,0 +1,32 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node modules
+**/node_modules/
+
+# Next.js build output
+**/.next/
+
+# Strapi cache & tmp
+**/.cache/
+**/.tmp/
+
+# Environment files – (secrets)
+**/.env
+**/.env.local
+**/.env.production
+
+# Logs
+**/*.log
+
+# Uploads – manage em separately after deployment
+**/public/uploads/
+**/uploads/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo

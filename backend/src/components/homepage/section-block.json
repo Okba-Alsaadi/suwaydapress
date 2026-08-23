@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_homepage_section_blocks",
+  "info": {
+    "displayName": "sectionblock",
+    "icon": "layout"
+  },
+  "options": {},
+  "attributes": {
+    "section_title": {
+      "type": "string",
+      "required": true
+    },
+    "linked_category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "layout_type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Grid4",
+        "Grid6",
+        "List",
+        "Mixed"
+      ]
+    },
+    "manual_articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    },
+    "show_more_button": {
+      "type": "boolean",
+      "default": true
+    },
+    "section_style": {
+      "type": "enumeration",
+      "default": "default",
+      "enum": [
+        "default",
+        "grey-background",
+        "two-column-left",
+        "two-column-right"
+      ]
+    }
+  },
+  "config": {}
+}
