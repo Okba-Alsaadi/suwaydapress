@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
         port: '1337',
         pathname: '/uploads/**',
       },
+      {
+        protocol: "https",
+        hostname: "https://suwaydapress-production.up.railway.app/admin",
+        pathname: "/uploads/**",
+      },
     ],
   },
   allowedDevOrigins: ['10.2.0.2'],
