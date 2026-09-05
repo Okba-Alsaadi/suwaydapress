@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "https://suwaydapress-production.up.railway.app/admin",
+        hostname: "suwaydapress-production.up.railway.app",
         pathname: "/uploads/**",
       },
     ],
