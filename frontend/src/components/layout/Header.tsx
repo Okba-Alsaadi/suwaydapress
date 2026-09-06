@@ -86,6 +86,7 @@ export default function Header({ locale, dict, categories }: Props) {
                 height={40}
                 priority
                 className="block md:hidden"
+                unoptimized   
               />
               <Image
                 src={logoHorizontal}
@@ -94,6 +95,7 @@ export default function Header({ locale, dict, categories }: Props) {
                 height={60}
                 priority
                 className="hidden md:block"
+                unoptimized   
               />
             </Link>
             <div className="flex items-center gap-2">
@@ -134,7 +136,7 @@ export default function Header({ locale, dict, categories }: Props) {
             <Container>
               <div className="flex items-center justify-between py-1">
                 <Link href={`/${locale}`} className="flex-shrink-0 mt-2">
-                  <Image src={logoHorizontal} alt={dict.footer.brand} width={210} height={60} priority />
+                  <Image src={logoHorizontal} alt={dict.footer.brand} width={210} height={60} priority unoptimized />
                 </Link>
                 <div className="flex items-center gap-4">
                   <a
@@ -162,7 +164,7 @@ export default function Header({ locale, dict, categories }: Props) {
               <div className="flex items-center">
                 {scrolled && (
                   <Link href={`/${locale}`} className="me-2">
-                    <Image src="/sLogo.png" alt={dict.footer.brand} width={30} height={30} />
+                    <Image src="/sLogo.png" alt={dict.footer.brand} width={30} height={30} unoptimized />
                   </Link>
                 )}
                 <nav className="flex items-center gap-3 text-sm font-normal">
