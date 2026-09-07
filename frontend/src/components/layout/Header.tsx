@@ -9,6 +9,11 @@ import { Category } from '@/types/strapi';
 import { Search } from 'lucide-react';
 import { FaFacebookF } from 'react-icons/fa6';
 
+import hArLogo from '@/../public/hArLogo.png';
+import hEnLogo from '@/../public/hEnLogo.png';
+import vLogo from '@/../public/vLogo.png';
+import sLogo from '@/../public/sLogo.png';
+
 interface Props {
   locale: string;
   dict: any;
@@ -52,8 +57,8 @@ export default function Header({ locale, dict, categories }: Props) {
   const parentCategories = categories.filter(cat => !cat.parent);
   const childCategories = categories.filter(cat => cat.parent);
   const isArabic = locale === 'ar';
-  const logoHorizontal = isArabic ? '/hArLogo.png' : '/hEnLogo.png';
-  const logoVertical = '/vLogo.png'; // vertical logo for mobile
+  const logoHorizontal = isArabic ? hArLogo : hEnLogo;
+  const logoVertical = vLogo;
 
   const [now, setNow] = useState(new Date());
   useEffect(() => {
@@ -68,17 +73,14 @@ export default function Header({ locale, dict, categories }: Props) {
   return (
     <>
       <header className="sticky top-0 z-50 bg-white">
-        {/* ---- Mobile layout ---- */}
+        {/* Mobile layout */}
         <div className="md:hidden">
-          {/* Tiny top strip with date and language */}
           <div className="bg-[#2d2d2de6] text-white text-xs py-1 px-4 flex items-center justify-between">
             <LanguageSwitcher locale={locale} />
             <span suppressHydrationWarning>{dateDisplay}</span>
           </div>
-          {/* Main mobile bar */}
           <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200">
             <Link href={`/${locale}`} className="flex-shrink-0">
-              {/* Vertical logo on mobile, horizontal on desktop */}
               <Image
                 src={logoVertical}
                 alt={dict.footer.brand}
@@ -86,7 +88,7 @@ export default function Header({ locale, dict, categories }: Props) {
                 height={40}
                 priority
                 className="block md:hidden"
-                unoptimized   
+                unoptimized
               />
               <Image
                 src={logoHorizontal}
@@ -95,11 +97,10 @@ export default function Header({ locale, dict, categories }: Props) {
                 height={60}
                 priority
                 className="hidden md:block"
-                unoptimized   
+                unoptimized
               />
             </Link>
             <div className="flex items-center gap-2">
-              {/* Facebook button – exactly like footer but smaller */}
               <a
                 href={dict.static.facebook_group_url}
                 target="_blank"
@@ -122,7 +123,7 @@ export default function Header({ locale, dict, categories }: Props) {
           </div>
         </div>
 
-        {/* ---- Desktop layout (completely unchanged) ---- */}
+        {/* Desktop layout */}
         <div className="hidden md:block">
           <div className={`bg-[#2d2d2de6] text-white overflow-hidden transition-all duration-300 ${scrolled ? 'max-h-0 opacity-0' : 'max-h-[100px] opacity-100'}`}>
             <Container>
@@ -157,14 +158,14 @@ export default function Header({ locale, dict, categories }: Props) {
           </div>
         </div>
 
-        {/* Desktop category navbar (unchanged) */}
+        {/* Desktop category navbar */}
         <div className="hidden md:block border-b-2 border-primary">
           <Container>
             <div className="flex items-center justify-between py-2">
               <div className="flex items-center">
                 {scrolled && (
                   <Link href={`/${locale}`} className="me-2">
-                    <Image src="/sLogo.png" alt={dict.footer.brand} width={30} height={30} unoptimized />
+                    <Image src={sLogo} alt={dict.footer.brand} width={30} height={30} unoptimized />
                   </Link>
                 )}
                 <nav className="flex items-center gap-3 text-sm font-normal">
@@ -209,7 +210,7 @@ export default function Header({ locale, dict, categories }: Props) {
         </div>
       </header>
 
-      {/* Mobile slide-out menu (unchanged) */}
+      {/* Mobile slide-out menu */}
       {mobileMenuOpen && (
         <>
           <div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setMobileMenuOpen(false)} />
