@@ -10,13 +10,14 @@ import SectionTitleBar from '@/components/homepage/SectionTitleBar';
 import { translateArticleCategories } from '@/lib/category';
 import { translateArticleAuthors } from '@/lib/author';
 import React from 'react';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 /* ---------- helpers ---------- */
 async function fetchCategoryArticles(slug: string, limit: number, locale: string): Promise<Article[]> {
   let childSlugs: string[] = [];
   try {
     const childrenRes = await fetchAPI<{ data: Category[] }>(
-      `/categories?filters[parent][slug][$eq]=${slug}&locale=${locale}&fields=slug`
+      `/categories?filters[parent][slug][$eq]=${slug}&locale=${getStrapiLocale(locale)}&fields=slug`
     );
     childSlugs = childrenRes.data.map((c) => c.slug);
   } catch {}
@@ -52,7 +53,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   let homepageData: Homepage | null = null;
   try {
     homepageData = (await fetchAPI<{ data: Homepage }>(
-      `/homepage?populate[main_headline][populate]=*&populate[secondary_headlines][populate]=*&populate[sections][populate]=*&locale=${locale}`
+      `/homepage?populate[main_headline][populate]=*&populate[secondary_headlines][populate]=*&populate[sections][populate]=*&locale=${getStrapiLocale(locale)}`
     )).data;
   } catch (e) {}
   if (!homepageData && locale !== 'ar') {

@@ -4,6 +4,7 @@ import Footer from '@/components/layout/Footer';
 import { getDictionary } from '@/lib/dictionary';
 import { fetchAPI } from '@/lib/strapi';
 import { Category } from '@/types/strapi';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 // استيراد الخطوط المطلوبة من Google Fonts
 import { Noto_Naskh_Arabic, Amiri, Playfair_Display, Source_Sans_3 } from 'next/font/google';
@@ -48,7 +49,7 @@ export default async function LocaleLayout({
   let headerCategories: Category[] = [];
   try {
     const res = await fetchAPI<{ data: Category[] }>(
-      `/categories?filters[active][$eq]=true&filters[show_in_navbar][$eq]=true&populate=parent&sort=order:asc&pagination[pageSize]=100&locale=${locale}`
+      `/categories?filters[active][$eq]=true&filters[show_in_navbar][$eq]=true&populate=parent&sort=order:asc&pagination[pageSize]=100&locale=${getStrapiLocale(locale)}`
     );
     headerCategories = res.data ?? [];
   } catch (e) {
@@ -65,7 +66,7 @@ export default async function LocaleLayout({
   let footerCategories: Category[] = [];
   try {
     const res = await fetchAPI<{ data: Category[] }>(
-      `/categories?filters[active][$eq]=true&filters[parent][$null]=true&sort=order:asc&pagination[pageSize]=100&locale=${locale}`
+      `/categories?filters[active][$eq]=true&filters[parent][$null]=true&sort=order:asc&pagination[pageSize]=100&locale=${getStrapiLocale(locale)}`
     );
     footerCategories = res.data ?? [];
   } catch (e) {

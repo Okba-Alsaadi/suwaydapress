@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Select from '@/components/ui/Select';
 import CustomDatePicker from '@/components/ui/DatePicker';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 interface Option {
   id: number;
@@ -40,9 +41,9 @@ export default function AdvancedSearchForm({ locale, dict }: Props) {
     const fetchOptions = async () => {
       try {
         const [categoriesRes, authorsRes, tagsRes] = await Promise.all([
-          fetch(`/api/categories?locale=${locale}`).then(res => res.json()),
-          fetch(`/api/authors?locale=${locale}`).then(res => res.json()),
-          fetch(`/api/tags?locale=${locale}`).then(res => res.json()),
+          fetch(`/api/categories?locale=${getStrapiLocale(locale)}`).then(res => res.json()),
+          fetch(`/api/authors?locale=${getStrapiLocale(locale)}`).then(res => res.json()),
+          fetch(`/api/tags?locale=${getStrapiLocale(locale)}`).then(res => res.json()),
         ]);
         setCategories(categoriesRes.data || []);
         setAuthors(authorsRes.data || []);

@@ -14,6 +14,7 @@ import ArticleCard from '@/components/homepage/ArticleCard';
 import { getDictionary } from '@/lib/dictionary';
 import { translateArticleCategories } from '@/lib/category';
 import { absoluteUrl } from '@/lib/url';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -77,7 +78,7 @@ export default async function ArticlePage({ params }: Props) {
   if (translatedAuthor && locale !== 'ar') {
     try {
       const authorRes = await fetchAPI<{ data: Author[] }>(
-        `/authors?filters[slug][$eq]=${translatedAuthor.slug}&locale=${locale}`
+        `/authors?filters[slug][$eq]=${translatedAuthor.slug}&locale=${getStrapiLocale(locale)}`
       );
       if (authorRes.data[0]) translatedAuthor = authorRes.data[0];
     } catch (e) {

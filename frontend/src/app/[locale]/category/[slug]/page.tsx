@@ -16,6 +16,7 @@ import { absoluteUrl } from '@/lib/url';
 import Image from 'next/image';
 import arCategoryCover from '@/../public/arCategoryCover.png';
 import enCategoryCover from '@/../public/enCategoryCover.png';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   try {
     let categoryRes = await fetchAPI<{ data: Category[] }>(
-      `/categories?filters[slug][$eq]=${slug}&locale=${locale}`
+      `/categories?filters[slug][$eq]=${slug}&locale=${getStrapiLocale(locale)}`
     );
     let category = categoryRes.data?.[0];
 
@@ -76,7 +77,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     : 'font-[family-name:var(--font-playfair-display)]';
 
   let categoryRes = await fetchAPI<{ data: Category[] }>(
-    `/categories?filters[slug][$eq]=${slug}&locale=${locale}&populate=parent`
+    `/categories?filters[slug][$eq]=${slug}&locale=${getStrapiLocale(locale)}&populate=parent`
   );
   let category = categoryRes.data?.[0];
 
@@ -90,7 +91,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   if (!category) notFound();
 
   let childrenRes = await fetchAPI<{ data: Category[] }>(
-    `/categories?filters[parent][slug][$eq]=${slug}&locale=${locale}&sort=order:asc`
+    `/categories?filters[parent][slug][$eq]=${slug}&locale=${getStrapiLocale(locale)}&sort=order:asc`
   );
   let children = childrenRes.data ?? [];
 

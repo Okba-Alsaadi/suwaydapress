@@ -11,6 +11,7 @@ import { translateArticleCategories } from '@/lib/category';
 import { notFound } from 'next/navigation';
 import { absoluteUrl } from '@/lib/url';
 import Link from 'next/link';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let author = null;
   try {
     const res = await fetchAPI<{ data: Author[] }>(
-      `/authors?filters[slug][$eq]=${slug}&locale=${locale}`
+      `/authors?filters[slug][$eq]=${slug}&locale=${getStrapiLocale(locale)}`
     );
     author = res.data[0];
   } catch (e) {}
@@ -57,7 +58,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
   let author = null;
   try {
     const res = await fetchAPI<{ data: Author[] }>(
-      `/authors?filters[slug][$eq]=${slug}&populate=*&locale=${locale}`
+      `/authors?filters[slug][$eq]=${slug}&populate=*&locale=${getStrapiLocale(locale)}`
     );
     author = res.data[0];
   } catch (e) {

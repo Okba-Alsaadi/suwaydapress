@@ -7,6 +7,7 @@ import { getDictionary } from '@/lib/dictionary';
 import { translateArticleCategories } from '@/lib/category';
 import { translateArticleAuthors } from '@/lib/author';
 import { absoluteUrl } from '@/lib/url';
+import { getStrapiLocale } from '@/lib/strapi-locale';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -39,7 +40,7 @@ export default async function TagPage({ params }: Props) {
   const dict = await getDictionary(locale);
 
   const tagRes = await fetchAPI<{ data: Tag[] }>(
-    `/tags?filters[slug][$eq]=${slug}&locale=${locale}`
+    `/tags?filters[slug][$eq]=${slug}&locale=${getStrapiLocale(locale)}`
   );
 
   const tag = tagRes.data[0];
