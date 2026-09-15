@@ -24,7 +24,7 @@ async function fetchCategoryArticles(slug: string, limit: number, locale: string
   const allSlugs = [slug, ...childSlugs];
   const filter = allSlugs.map((s) => `filters[category][slug][$in][]=${s}`).join('&');
   const res = await fetchAPI<{ data: Article[] }>(
-    `/articles?${filter}&populate=*&sort=publishedAt:desc&pagination[limit]=${limit}`
+    `/articles?${filter}&populate=*&sort=publishedAt:desc&pagination[limit]=${limit}&locale=${getStrapiLocale(locale)}`
   );
   return res.data || [];
 }
@@ -59,7 +59,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   if (!homepageData && locale !== 'ar') {
     try {
       homepageData = (await fetchAPI<{ data: Homepage }>(
-        `/homepage?populate[main_headline][populate]=*&populate[secondary_headlines][populate]=*&populate[sections][populate]=*&locale=ar`
+        `/homepage?populate[main_headline][populate]=*&populate[secondary_headlines][populate]=*&populate[sections][populate]=*&locale=ar-SY`
       )).data;
     } catch {}
   }

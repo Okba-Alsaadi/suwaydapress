@@ -14,8 +14,8 @@ import { translateArticleCategories } from '@/lib/category';
 import { translateArticleAuthors } from '@/lib/author';
 import { absoluteUrl } from '@/lib/url';
 import Image from 'next/image';
-import arCategoryCover from '@/../public/arCategoryCover.png';
-import enCategoryCover from '@/../public/enCategoryCover.png';
+import arCategoryCover from '@/../public/arCategoryCover.jpg';
+import enCategoryCover from '@/../public/enCategoryCover.jpg';
 import { getStrapiLocale } from '@/lib/strapi-locale';
 
 interface Props {
@@ -23,7 +23,6 @@ interface Props {
   searchParams: Promise<{ page?: string }>;
 }
 
-// Updated slugs – your list: qantara-podcast, filmani, articles, political-notice, breaches, control
 const MEDIA_CATEGORY_SLUGS = [
   'qantara-podcast',
   'filmani',
@@ -44,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!category && locale !== 'ar') {
       const fallbackRes = await fetchAPI<{ data: Category[] }>(
-        `/categories?filters[slug][$eq]=${slug}&locale=ar`
+        `/categories?filters[slug][$eq]=${slug}&locale=ar-SY`
       );
       category = fallbackRes.data?.[0];
     }
@@ -83,7 +82,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
   if (!category && locale !== 'ar') {
     const fallbackRes = await fetchAPI<{ data: Category[] }>(
-      `/categories?filters[slug][$eq]=${slug}&locale=ar&populate=parent`
+      `/categories?filters[slug][$eq]=${slug}&locale=ar-SY&populate=parent`
     );
     category = fallbackRes.data?.[0];
   }
@@ -97,7 +96,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
   if (children.length === 0 && locale !== 'ar') {
     const fallbackChildrenRes = await fetchAPI<{ data: Category[] }>(
-      `/categories?filters[parent][slug][$eq]=${slug}&locale=ar&sort=order:asc`
+      `/categories?filters[parent][slug][$eq]=${slug}&locale=ar-SY&sort=order:asc`
     );
     children = fallbackChildrenRes.data ?? [];
   }
@@ -106,7 +105,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   if (children.length > 0) {
     const childSectionsPromises = children.map(async (child) => {
       const res = await fetchAPI<{ data: Article[] }>(
-        `/articles?filters[category][slug][$eq]=${child.slug}&populate=*&sort=publishedAt:desc&pagination[limit]=3`
+        `/articles?filters[category][slug][$eq]=${child.slug}&populate=*&sort=publishedAt:desc&pagination[limit]=3&locale=${getStrapiLocale(locale)}`
       );
       const translatedCats = await translateArticleCategories(res.data ?? [], locale);
       const translated = await translateArticleAuthors(translatedCats, locale);
@@ -172,7 +171,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                       <SectionTitleBar title={child.name} locale={locale} variant="white" />
                     </Link>
                     <div className="pt-14 sm:pt-12">
-                      {/* 2 columns on mobile for media cards, 3 for normal */}
                       <div className={`grid gap-3 sm:gap-8 ${isMedia ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-3'}`}>
                         {articles.map((article) =>
                           isMedia ? (
@@ -207,7 +205,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     data: Article[];
     meta: { pagination: { page: number; pageSize: number; pageCount: number; total: number } };
   }>(
-    `/articles?filters[category][slug][$eq]=${slug}&populate=*&sort=publishedAt:desc&pagination[page]=${currentPage}&pagination[pageSize]=${pageSize}`
+    `/articles?filters[category][slug][$eq]=${slug}&populate=*&sort=publishedAt:desc&pagination[page]=${currentPage}&pagination[pageSize]=${pageSize}&locale=${getStrapiLocale(locale)}`
   );
   const articles = articlesRes.data ?? [];
   const pagination = articlesRes.meta?.pagination;
@@ -245,11 +243,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           className="absolute inset-0"
           style={{
             maskImage: isRTL
-                ? 'linear-gradient(to bottom right, white 5%, transparent 75%)'
-                : 'linear-gradient(to bottom left, white 5%, transparent 75%)',
+              ? 'linear-gradient(to bottom right, white 5%, transparent 75%)'
+              : 'linear-gradient(to bottom left, white 5%, transparent 75%)',
             WebkitMaskImage: isRTL
-                ? 'linear-gradient(to bottom right, white 5%, transparent 75%)'
-                : 'linear-gradient(to bottom left, white 5%, transparent 75%)',
+              ? 'linear-gradient(to bottom right, white 5%, transparent 75%)'
+              : 'linear-gradient(to bottom left, white 5%, transparent 75%)',
           }}
         >
           <Image src={categoryCover} alt="" fill className="object-fill" priority unoptimized />
@@ -278,7 +276,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           <p className="text-center text-blackish/80 py-20">{dict.category.no_articles}</p>
         ) : (
           <>
-            {/* 2 columns on mobile for media, 3 for normal */}
             <div className={`grid gap-3 sm:gap-8 mt-6 sm:mt-12 ${isMediaCategory ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-3'}`}>
               {translatedArticles.map((article) =>
                 isMediaCategory ? (
