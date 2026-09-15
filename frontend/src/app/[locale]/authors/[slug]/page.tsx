@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!author && locale !== 'ar') {
     try {
       const res = await fetchAPI<{ data: Author[] }>(
-        `/authors?filters[slug][$eq]=${slug}&locale=ar`
+        `/authors?filters[slug][$eq]=${slug}&locale=ar-SY`
       );
       author = res.data[0];
     } catch (e) {}
@@ -67,7 +67,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
   if (!author && locale !== 'ar') {
     try {
       const res = await fetchAPI<{ data: Author[] }>(
-        `/authors?filters[slug][$eq]=${slug}&populate=*&locale=ar`
+        `/authors?filters[slug][$eq]=${slug}&populate=*&locale=ar-SY`
       );
       author = res.data[0];
     } catch (e) {}
@@ -82,12 +82,12 @@ export default async function AuthorPage({ params, searchParams }: Props) {
   }
   if (!author) return notFound();
 
-  // ---------- Paginated articles fetch ----------
+  // ---------- Paginated articles fetch (WITH locale) ----------
   const articlesRes = await fetchAPI<{
     data: Article[];
     meta: { pagination: { page: number; pageSize: number; pageCount: number; total: number } };
   }>(
-    `/articles?filters[author][slug][$eq]=${slug}&populate=*&sort=publishedAt:desc&pagination[page]=${currentPage}&pagination[pageSize]=${pageSize}`
+    `/articles?filters[author][slug][$eq]=${slug}&populate=*&sort=publishedAt:desc&pagination[page]=${currentPage}&pagination[pageSize]=${pageSize}&locale=${getStrapiLocale(locale)}`
   );
   const articles = articlesRes.data ?? [];
   const pagination = articlesRes.meta?.pagination;
@@ -95,7 +95,6 @@ export default async function AuthorPage({ params, searchParams }: Props) {
 
   const translatedArticles = await translateArticleCategories(articles, locale);
 
-  // Pagination counter logic (same as child category)
   const generatePagination = (current: number, total: number) => {
     if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
     const pages: (number | 'ellipsis')[] = [];
@@ -113,7 +112,6 @@ export default async function AuthorPage({ params, searchParams }: Props) {
   return (
     <Container>
       <main className="py-8">
-        {/* Author header: image + gray card with same height */}
         <div className="flex flex-row h-48 md:h-56 mb-8">
           {author.photo && (
             <div className="h-full w-40 md:w-48 flex-shrink-0 overflow-hidden rounded-md">
@@ -142,17 +140,14 @@ export default async function AuthorPage({ params, searchParams }: Props) {
           </div>
         </div>
 
-        {/* Separator above articles */}
         <div className="border-t border-gray-300 mb-8" />
 
-        {/* Gray rectangle title for "Author's articles" */}
         <div className="mb-8">
           <span className="inline-block bg-gray-200 text-black font-bold text-xl px-5 py-2 rounded-md">
             {dict.author.articles.replace('{name}', author.name)}
           </span>
         </div>
 
-        {/* Articles grid */}
         {translatedArticles.length === 0 ? (
           <p className="text-blackish/80">{dict.author.no_articles}</p>
         ) : (
@@ -163,7 +158,6 @@ export default async function AuthorPage({ params, searchParams }: Props) {
               ))}
             </div>
 
-            {/* Pagination counter */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-12 pb-4">
                 {currentPage > 1 && (

@@ -35,11 +35,6 @@
     },
     "photo": {
       "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "multiple": false,
       "allowedTypes": [
         "images"
@@ -55,11 +50,6 @@
     },
     "role": {
       "type": "enumeration",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "enum": [
         "Editor",
         "Contributor"
@@ -67,11 +57,6 @@
     },
     "active": {
       "type": "boolean",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "default": true
     },
     "articles": {
