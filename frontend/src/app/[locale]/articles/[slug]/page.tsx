@@ -22,8 +22,9 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
+  const strapiLocale = getStrapiLocale(locale);
   const res = await fetchAPI<{ data: Article[] }>(
-    `/articles?filters[slug][$eq]=${slug}&populate=*`
+    `/articles?filters[slug][$eq]=${slug}&populate=*&locale=${strapiLocale}`
   );
   const article = res.data[0];
   if (!article) return { title: 'Article not found' };
@@ -50,18 +51,21 @@ export default async function ArticlePage({ params }: Props) {
   const { slug, locale } = await params;
   const dict = await getDictionary(locale);
   const isRTL = locale === 'ar';
+  const strapiLocale = getStrapiLocale(locale);
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, '');
 
+  // ---- Main article fetch with correct locale ----
   const res = await fetchAPI<{ data: Article[] }>(
-    `/articles?filters[slug][$eq]=${slug}&populate=*`
+    `/articles?filters[slug][$eq]=${slug}&populate=*&locale=${strapiLocale}`
   );
   const article = res.data[0];
   if (!article) return <Container>Article not found</Container>;
 
+  // ---- Gallery fetch with correct locale ----
   let gallery: any[] = [];
   try {
     const galleryRes = await fetchAPI<{ data: Article[] }>(
-      `/articles?filters[slug][$eq]=${slug}&populate[gallery][populate]=*`
+      `/articles?filters[slug][$eq]=${slug}&populate[gallery][populate]=*&locale=${strapiLocale}`
     );
     gallery = galleryRes.data[0]?.gallery || [];
   } catch (error) {
@@ -78,7 +82,7 @@ export default async function ArticlePage({ params }: Props) {
   if (translatedAuthor && locale !== 'ar') {
     try {
       const authorRes = await fetchAPI<{ data: Author[] }>(
-        `/authors?filters[slug][$eq]=${translatedAuthor.slug}&locale=${getStrapiLocale(locale)}`
+        `/authors?filters[slug][$eq]=${translatedAuthor.slug}&locale=${strapiLocale}`
       );
       if (authorRes.data[0]) translatedAuthor = authorRes.data[0];
     } catch (e) {
@@ -86,7 +90,7 @@ export default async function ArticlePage({ params }: Props) {
     }
   }
 
-  // Build slider images
+  // ---- Build slider images ----
   const sliderImages: { src: string; alt: string }[] = [];
   const featuredUrl = article.featured_image?.url;
   if (featuredUrl) sliderImages.push({ src: `${baseUrl}${featuredUrl}`, alt: article.title });
@@ -97,13 +101,13 @@ export default async function ArticlePage({ params }: Props) {
     }
   }
 
-  // Related articles
+  // ---- Related articles with correct locale ----
   let related: Article[] = [];
   if (relatedManual?.length) {
     related = relatedManual.slice(0, 3);
   } else if (category) {
     const relatedRes = await fetchAPI<{ data: Article[] }>(
-      `/articles?filters[category][slug][$eq]=${category.slug}&filters[slug][$ne]=${article.slug}&sort=publishedAt:desc&pagination[limit]=3&populate=*`
+      `/articles?filters[category][slug][$eq]=${category.slug}&filters[slug][$ne]=${article.slug}&sort=publishedAt:desc&pagination[limit]=3&populate=*&locale=${strapiLocale}`
     );
     related = relatedRes.data ?? [];
   }
@@ -129,7 +133,6 @@ export default async function ArticlePage({ params }: Props) {
     mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(`/${locale}/articles/${article.slug}`) },
   };
 
-  // Same asymmetric margins as other text content
   const textBlockClass = `max-w-4xl ms-0 me-8`;
 
   return (
@@ -139,14 +142,12 @@ export default async function ArticlePage({ params }: Props) {
 
       <Container>
         <main className="pt-6 md:pt-8 pb-12">
-          {/* ---------- Image / slider (now shifted like the article) ---------- */}
           {!article.external_url && sliderImages.length > 0 && (
             <div className={`${textBlockClass} mb-8`}>
               {sliderImages.length > 1 ? (
                 <ArticleImageSlider images={sliderImages} blurred />
               ) : (
                 <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-[0_12px_35px_rgba(0,0,0,0.07)] bg-gray-200">
-                  {/* Blurred background */}
                   <div className="absolute inset-0 overflow-hidden">
                     <Image
                       src={sliderImages[0].src}
@@ -157,7 +158,6 @@ export default async function ArticlePage({ params }: Props) {
                       aria-hidden="true"
                     />
                   </div>
-                  {/* Main image */}
                   <div className="absolute inset-0 flex items-center justify-center p-1">
                     <Image
                       src={sliderImages[0].src}
@@ -173,7 +173,6 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           )}
 
-          {/* External media card */}
           {article.external_url && (
             <div className={`${textBlockClass} mb-8`}>
               <ExternalMediaCard
@@ -186,14 +185,12 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           )}
 
-          {/* Title */}
           <div className={`${textBlockClass} mb-4`}>
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-black">
               {article.title}
             </h1>
           </div>
 
-          {/* Date & time (on its own line) */}
           <div className={`${textBlockClass} mb-2 text-sm text-black/80`}>
             {article.publishedAt && (
               <time dateTime={article.publishedAt}>
@@ -206,7 +203,6 @@ export default async function ArticlePage({ params }: Props) {
             )}
           </div>
 
-          {/* Author name (on its own line below date) */}
           {translatedAuthor && (
             <div className={`${textBlockClass} mb-8 text-sm text-black/80`}>
               <Link href={`/${locale}/authors/${translatedAuthor.slug}`} className="hover:text-primary transition-colors">
@@ -215,7 +211,6 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           )}
 
-          {/* Opinion highlight */}
           {isOpinion && highlight && (
             <div className={`${textBlockClass} mb-8`}>
               <div className="bg-gray-200 px-6 py-5 rounded-md text-xl md:text-2xl font-semibold text-black/90 leading-relaxed">
@@ -224,7 +219,6 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           )}
 
-          {/* Article body */}
           <div
             className={`${textBlockClass} text-[21px] leading-[2.2] text-black space-y-6
               [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-black/90
@@ -237,7 +231,6 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </main>
 
-        {/* Related articles */}
         {related.length > 0 && (
           <section className="border-t border-gray-300 pt-8 mt-0 mb-8">
             <div className="mb-8">
