@@ -6,6 +6,7 @@ import { fetchAPI } from '@/lib/strapi';
 import { Category } from '@/types/strapi';
 import { getStrapiLocale } from '@/lib/strapi-locale';
 import Script from 'next/script';
+import type { Metadata } from 'next';
 
 // استيراد الخطوط المطلوبة من Google Fonts
 import { Noto_Naskh_Arabic, Amiri, Playfair_Display, Source_Sans_3 } from 'next/font/google';
@@ -33,6 +34,12 @@ const sourceSans3 = Source_Sans_3({
   weight: ['400', '700'],
   variable: '--font-source-sans-3',
 });
+
+export const metadata: Metadata = {
+  verification: {
+    google: 'hKM_-MzfL5w-fJ9Y-oB9-M83GJQhF7JwwfxlU98JIFg',
+  },
+};
 
 export default async function LocaleLayout({
   children,
