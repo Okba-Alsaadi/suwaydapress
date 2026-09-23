@@ -12,7 +12,7 @@ import { Noto_Naskh_Arabic, Amiri, Playfair_Display, Source_Sans_3 } from 'next/
 
 const notoNaskhArabic = Noto_Naskh_Arabic({
   subsets: ['arabic'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   variable: '--font-noto-naskh-arabic',
 });
 
@@ -24,13 +24,13 @@ const amiri = Amiri({
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   variable: '--font-playfair-display',
 });
 
 const sourceSans3 = Source_Sans_3({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '700'],
   variable: '--font-source-sans-3',
 });
 

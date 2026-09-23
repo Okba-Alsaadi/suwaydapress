@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
         pathname: "/uploads/**",
       },
     ],
+    minimumCacheTTL: 2678400, // 31 days
+    formats: ['image/webp'],
   },
   allowedDevOrigins: ['10.2.0.2'],
 };
