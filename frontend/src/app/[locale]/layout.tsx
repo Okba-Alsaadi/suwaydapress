@@ -5,6 +5,7 @@ import { getDictionary } from '@/lib/dictionary';
 import { fetchAPI } from '@/lib/strapi';
 import { Category } from '@/types/strapi';
 import { getStrapiLocale } from '@/lib/strapi-locale';
+import Script from 'next/script';
 
 // استيراد الخطوط المطلوبة من Google Fonts
 import { Noto_Naskh_Arabic, Amiri, Playfair_Display, Source_Sans_3 } from 'next/font/google';
@@ -44,8 +45,6 @@ export default async function LocaleLayout({
   const isArabic = locale === 'ar';
   const dict = await getDictionary(locale);
 
-
-
   let headerCategories: Category[] = [];
   try {
     const res = await fetchAPI<{ data: Category[] }>(
@@ -80,7 +79,6 @@ export default async function LocaleLayout({
     }
   }
 
-
   return (
     <div
       className={`${notoNaskhArabic.variable} ${amiri.variable} ${playfairDisplay.variable} ${sourceSans3.variable}`}
@@ -88,6 +86,20 @@ export default async function LocaleLayout({
       dir={isArabic ? 'rtl' : 'ltr'}
       suppressHydrationWarning
     >
+      {/* Google Analytics 4 */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-1HXXQKCM2Q"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1HXXQKCM2Q');
+        `}
+      </Script>
+
       <Header locale={locale} dict={dict} categories={headerCategories} />
       {children}
       <Footer locale={locale} dict={dict} categories={footerCategories} />
